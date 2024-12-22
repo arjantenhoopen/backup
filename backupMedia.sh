@@ -1,5 +1,5 @@
 #!/bin/sh
-MY_NAME=$(basename $0)
+MY_NAME=$(basename "${0}")
 PROGRAMSRCFILE=/tenhoopen/src/backup/${MY_NAME}.sh
 MYVERSION=9
 
@@ -19,11 +19,11 @@ SRC2=/Media2
 #DEST2=/MediaBackup2
 DEST=/MediaNAS
 DEST2=/MediaNAS
-EXTFS=volumio:/Media
-EXTFS2=volumio:/Media2
-EXTFSTYPE=nfs
-MOUNTEXTFS=/MediaNAS
-MOUNTEXTFS2=/MediaNAS
+#EXTFS=volumio:/Media
+#EXTFS2=volumio:/Media2
+#EXTFSTYPE=nfs
+#MOUNTEXTFS=/MediaNAS
+#MOUNTEXTFS2=/MediaNAS
 TARGET=""
 
 SHOWPROGRESS=false
@@ -31,7 +31,7 @@ DRYRUN="-n"
 RSYNCEXCLUDE=" --exclude .Trash\* "
 RSYNCOPTIONS=""
 RSYNCPROGRESSOPTIONS="--stats --human-readable "
-SYSLOG="logger -t $MY_NAME --"		# log to /var/log/messages
+#SYSLOG="logger -t $MY_NAME --"		# log to /var/log/messages
  
 #
 # Help informatie
@@ -71,17 +71,17 @@ show_error ()
 #
 version_check ()
 {
-  if [ ! -f ${PROGRAMSRCFILE} ] ; then
+  if [ ! -f "${PROGRAMSRCFILE}" ] ; then
   {
     echo Waarschuwing: kan niet bepalen of dit de laatste versie is
   }
   else
   {
-    LATESTVERSION=$(grep ^MYVERSION= ${PROGRAMSRCFILE}|cut -f2 -d =)
-    if [ ${MYVERSION} -ne ${LATESTVERSION} ] ; then
+    LATESTVERSION=$(grep ^MYVERSION= "${PROGRAMSRCFILE}"|cut -f2 -d =)
+    if [ ${MYVERSION} -ne "${LATESTVERSION}" ] ; then
     {
-      echo ER IS EEN NIEUWER VERSIE
-      echo Nieuwste versie is ${LATESTVERSION} mijn versie is ${MYVERSION}
+      echo "ER IS EEN NIEUWER VERSIE"
+      echo "Nieuwste versie is ${LATESTVERSION} mijn versie is ${MYVERSION}"
     }
     else
     {
@@ -250,15 +250,13 @@ do
 	  {
 	    if [ "${DRYRUN}" = "" ] ; then
 	    {
-              echo Uitvoeren van: rsync ${RSYNCPROGRESSOPTIONS} ${RSYNCOPTIONS} ${RSYNCEXCLUDE} "${TSRC}" "${TDEST}" \| pv -lep -s ${TOTALCOUNT}
-              rsync                     ${RSYNCPROGRESSOPTIONS} ${RSYNCOPTIONS} ${RSYNCEXCLUDE} "${TSRC}" "${TDEST}" | pv -lep -s ${TOTALCOUNT}
-              #echo Uitvoeren van: rsync ${RSYNCPROGRESSOPTIONS} ${RSYNCOPTIONS} ${RSYNCEXCLUDE} "${TSRC}" "${TDEST}" \| pv -lep -s ${TOTALCOUNT} gereed
+              echo "Uitvoeren van: rsync ${RSYNCPROGRESSOPTIONS} ${RSYNCOPTIONS} ${RSYNCEXCLUDE} ${TSRC} ${TDEST} \| pv -lep -s ${TOTALCOUNT}"
+              rsync                     "${RSYNCPROGRESSOPTIONS}" "${RSYNCOPTIONS}" "${RSYNCEXCLUDE}" "${TSRC}" "${TDEST}" | pv -lep -s ${TOTALCOUNT}
 	    }
             else
 	    {
               echo Uitvoeren van: rsync ${RSYNCPROGRESSOPTIONS} ${RSYNCOPTIONS} ${RSYNCEXCLUDE} "${TSRC}" "${TDEST}"
               rsync                     ${RSYNCPROGRESSOPTIONS} ${RSYNCOPTIONS} ${RSYNCEXCLUDE} "${TSRC}" "${TDEST}"
-              #echo Uitvoeren van: rsync ${RSYNCPROGRESSOPTIONS} ${RSYNCOPTIONS} ${RSYNCEXCLUDE} "${TSRC}" "${TDEST}" gereed
 	    }
 	    fi
           }
@@ -270,9 +268,8 @@ do
   }
   else
   {
-    echo Uitvoeren van: rsync ${RSYNCOPTIONS} ${RSYNCEXCLUDE} "${TSRC}" "${TDEST}"
-    rsync                     ${RSYNCOPTIONS} ${RSYNCEXCLUDE} "${TSRC}" "${TDEST}"
-    #echo Uitvoeren van: rsync ${RSYNCOPTIONS} ${RSYNCEXCLUDE} "${TSRC}" "${TDEST}" gereed
+    echo "Uitvoeren van: rsync ${RSYNCOPTIONS} ${RSYNCEXCLUDE} ${TSRC} ${TDEST}"
+    rsync                     "${RSYNCOPTIONS}" "${RSYNCEXCLUDE}" "${TSRC}" "${TDEST}"
     echo
   }
   fi
@@ -297,4 +294,4 @@ else
 }
 fi
 
-exit $?
+exit 0
