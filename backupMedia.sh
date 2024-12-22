@@ -1,5 +1,5 @@
 #!/bin/sh
-MY_NAME=`basename $0`
+MY_NAME=$(basename $0)
 PROGRAMSRCFILE=/tenhoopen/src/backup/${MY_NAME}.sh
 MYVERSION=9
 
@@ -77,7 +77,7 @@ version_check ()
   }
   else
   {
-    LATESTVERSION=`grep ^MYVERSION= ${PROGRAMSRCFILE}|cut -f2 -d =`
+    LATESTVERSION=$(grep ^MYVERSION= ${PROGRAMSRCFILE}|cut -f2 -d =)
     if [ ${MYVERSION} -ne ${LATESTVERSION} ] ; then
     {
       echo ER IS EEN NIEUWER VERSIE

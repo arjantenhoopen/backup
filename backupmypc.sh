@@ -1,17 +1,17 @@
 #!/bin/sh
 #
 SKIPSYSTEMS=
-MY_NAME=`basename $0`
+MY_NAME=$(basename $0)
 PROGRAMSRCFILE=/tenhoopen/src/backup/${MY_NAME}.sh
 MYVERSION=28
 
 #SYSLOG="logger -t $MY_NAME --"		# log to /var/log/messages
-IAM=`whoami`
-THISPC=`hostname`
+IAM=$(whoami)
+THISPC=$(hostname)
 STACKFILE=/tmp/stackfile$$
 # Give diskmountpoint a default value
 DISKMOUNTPOINT=/BACKUPDISK
-DAY_OF_WEEK=`date +%a`                  # is it Mon, Tue ...
+DAY_OF_WEEK=$(date +%a)                  # is it Mon, Tue ...
 LOCALHOMEDIR=/home/${IAM}/
 DIRLIST=${HOME}/.config/backupmypc/dirlist.conf
 MOUNTLIST=${HOME}/.config/backupmypc/mountlist.conf
